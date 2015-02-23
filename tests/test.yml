@@ -1,0 +1,10 @@
+- hosts: all
+  sudo: True
+
+  vars:
+    chatid_environment: default
+    consul_server: true
+    consul_bootstrap_expect: 1
+
+  roles:
+  - role: 'chatid.consul-template'

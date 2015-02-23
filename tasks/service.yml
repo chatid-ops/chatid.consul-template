@@ -1,0 +1,13 @@
+---
+- name: service | touch log file
+  file: >
+    path={{ consul_template_log_file }} state=touch
+    owner={{ consul_template_user }} group={{ consul_template_user }}
+  changed_when: False
+
+- name: service | render upstart service config
+  template: src=upstart.conf dest=/etc/init/consul-template.conf mode=0755
+  notify: restart consul-template
+
+- name: service | enable service
+  service: name=consul-template enabled=yes state=started

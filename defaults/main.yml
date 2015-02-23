@@ -1,0 +1,16 @@
+---
+# defaults file for chatid.consul-template
+consul_template_version: 0.7.0
+consul_template_archive_file: "consul-template_{{ consul_template_version }}_linux_amd64.tar.gz"
+consul_template_download_url: "https://github.com/hashicorp/consul-template/releases/download/v{{ consul_template_version }}/{{ consul_template_archive_file }}"
+consul_template_bin: /usr/local/bin/consul-template
+consul_template_config_dir: /etc/consul-template/conf
+consul_template_templates_dir: /etc/consul-template/templates
+consul_template_config_file: "{{ consul_template_config_dir }}/consul-template.cfg"
+consul_template_log_file: /var/log/consul-template
+consul_template_log_level: info
+consul_template_agent_host: 127.0.0.1
+consul_template_user: root
+consul_template_agent_port: "{{ consul_http_port }}"
+consul_template_syslog: yes
+consul_template_syslog_facility: LOCAL0

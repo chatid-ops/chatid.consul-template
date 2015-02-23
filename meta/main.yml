@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: Matt Wright <wright@chatid.com>
+  description: Installs and configures consul-template <https://github.com/hashicorp/consul-template>
+  company: ChatID Inc.
+  license: MIT
+  platforms:
+    - name: Ubuntu
+      versions:
+        - trusty
+  categories:
+    - configuration
+dependencies:
+  - chatid.consul

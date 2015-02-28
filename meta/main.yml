@@ -11,4 +11,4 @@ galaxy_info:
   categories:
     - configuration
 dependencies:
-  - chatid.consul
+  - git+git@github.com:chatid/ansible-consul.git,master,chatid.consul

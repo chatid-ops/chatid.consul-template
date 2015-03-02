@@ -10,5 +10,8 @@ galaxy_info:
         - trusty
   categories:
     - configuration
+
 dependencies:
-  - git+git@github.com:chatid/ansible-consul.git,master,chatid.consul
+  - name: chatid.consul
+    src: git+git@github.com:chatid/ansible-consul.git
+    version: master

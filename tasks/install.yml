@@ -13,14 +13,14 @@
 
 - unarchive:
     src: "/tmp/{{ consul_template_archive_file }}"
-    dest: "{{ consul_template_bin }}"
+    dest: "{{ consul_template_bin | dirname }}"
     copy: False
     creates: "{{ consul_template_bin }}"
 
 - name: install | ensure bin permissions
   file:
     path: "{{ consul_template_bin }}"
-    mode: 770
+    mode: 0770
 
 - name: install | create consul-template directories
   file:

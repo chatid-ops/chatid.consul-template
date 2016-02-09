@@ -11,8 +11,4 @@ galaxy_info:
   categories:
     - configuration
 
-dependencies:
-  - name: chatid.consul
-    src: git+git@github.com:chatid/ansible-consul.git
-    version: master
-    tags: [provisioning, consul]
+dependencies: []

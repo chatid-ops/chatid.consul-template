@@ -1,29 +1,37 @@
 ---
-- name: install | download consul-template
-  get_url: url={{ consul_template_download_url }} dest=/tmp/{{ consul_template_archive_file }}
-  register: consul_template_download_result
+- name: install | check archive stat
+  stat:
+    path: /tmp/{{ consul_template_archive_file }}
+  register: consul_template_archive_stat
 
-- name: install | install consul-template
-  command: chdir=/tmp {{ item }}
-  when: consul_template_download_result.changed
-  with_items:
-    - "tar -xvf /tmp/{{ consul_template_archive_file }}"
-    - "mv /tmp/{{ consul_template_archive_file | replace('.tar.gz', '') }}/consul-template {{ consul_template_bin }}"
+
+- name: install | download consul-template
+  get_url:
+    url: "{{ consul_template_download_url }}"
+    dest: /tmp/{{ consul_template_archive_file }}
+  when: not consul_template_archive_stat.stat.exists
+
+- unarchive:
+    src: "/tmp/{{ consul_template_archive_file }}"
+    dest: "{{ consul_template_bin }}"
+    copy: False
+    creates: "{{ consul_template_bin }}"
 
 - name: install | ensure bin permissions
-  file: >
-    path={{ consul_template_bin }}
-    owner={{ consul_template_user }} group={{ consul_template_user }} mode=770
+  file:
+    path: "{{ consul_template_bin }}"
+    mode: 770
 
 - name: install | create consul-template directories
-  file: >
-    state=directory path={{ item }}
-    owner={{ consul_template_user }} group={{ consul_template_user }} mode=775
+  file:
+    path: '{{ item }}'
+    mode: 775
+    state: directory
   with_items:
     - "{{ consul_template_config_dir }}"
     - "{{ consul_template_templates_dir }}"
 
 - name: install | render consul-template config
-  template: >
-    src=consul-template.cfg dest={{ consul_template_config_file }}
-    owner={{ consul_template_user }} group={{ consul_template_user }}
+  template:
+    src: consul-template.cfg
+    dest: {{ consul_template_config_file }}

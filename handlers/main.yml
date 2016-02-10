@@ -1,4 +1,0 @@
----
-# handlers file for chatid.consul-template
-- name: restart consul-template
-  action: service name=consul-template state=restarted
